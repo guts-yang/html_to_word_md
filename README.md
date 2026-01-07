@@ -1,78 +1,70 @@
-# HTML to Multi-Format Converter Platform
+# HTML to Multi-Format Converter
 
-ÕâÊÇÒ»¸ö¹¦ÄÜÍêÕûµÄ Web Ó¦ÓÃ³ÌĞò£¬Ìá¹©½« HTML ÎÄ¼ş×ª»»Îª Markdown¡¢PDF ºÍ Word (.docx) ¸ñÊ½µÄ·şÎñ¡£Í¬Ê±Ò²±£ÁôÁËÃüÁîĞĞ¹¤¾ß (CLI) µÄ¹¦ÄÜ¡£
+A comprehensive Spring Boot Web Application for converting HTML documents into Markdown and Word (.docx) formats.
 
-## Web Ó¦ÓÃ³ÌĞò¹¦ÄÜ
+## Features
 
-1.  **ÓÃ»§ÏµÍ³**
-    *   ÓÃ»§×¢²áÓëµÇÂ¼ (RESTful API + Basic Auth)
-    *   ¸öÈËÒÇ±íÅÌ
-2.  **ÎÄµµ×ª»»**
-    *   Ö§³ÖÉÏ´« HTML ÎÄ¼ş
-    *   Ö§³Ö×ª»»Îª PDF (´øÖĞÎÄÖ§³Ö), Word, Markdown
-    *   ÊµÊ±ÈÎÎñ×´Ì¬¸üĞÂ (Polling)
-    *   ÀúÊ·¼ÇÂ¼²é¿´ÓëÏÂÔØ
-3.  **¼¼ÊõÕ»**
-    *   ºó¶Ë: Spring Boot 3, Spring Security, Spring Data JPA, H2 Database
-    *   Ç°¶Ë: HTML5, Bootstrap 5, Vanilla JS (SPA ·ç¸ñ)
-    *   ¹¹½¨: Maven
+- **Web Interface**: User-friendly dashboard for file uploads and task management.
+- **Authentication**: Secure login and registration system.
+- **Async Processing**: Non-blocking conversion tasks with retry logic.
+- **Formats Supported**:
+    - HTML to Markdown
+    - HTML to Word (.docx)
+- **REST API**: Fully functional API for programmatic access.
 
-## ¿ìËÙ¿ªÊ¼
+## Project Structure
 
-### 1. »·¾³×¼±¸
-È·±£ÄúµÄÏµÍ³ÒÑ°²×°£º
-- Java JDK 17 »ò¸ü¸ß°æ±¾
-- Maven 3.x »ò Maven Daemon (mvnd)
-
-### 2. ¹¹½¨ÏîÄ¿
-ÔËĞĞ¹¹½¨½Å±¾ (×Ô¶¯¼ì²â mvn/mvnd):
-```cmd
-.\build.bat
+```
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ main/
+â”‚   â”‚   â”œâ”€â”€ java/com/example/htmlconverter/
+â”‚   â”‚   â”‚   â”œâ”€â”€ cli/          # CLI entry point (Main.java)
+â”‚   â”‚   â”‚   â”œâ”€â”€ config/       # Spring Configuration (Security)
+â”‚   â”‚   â”‚   â”œâ”€â”€ controller/   # REST Controllers
+â”‚   â”‚   â”‚   â”œâ”€â”€ converter/    # Format Converters (Markdown, Word)
+â”‚   â”‚   â”‚   â”œâ”€â”€ core/         # Core Interfaces
+â”‚   â”‚   â”‚   â”œâ”€â”€ model/        # JPA Entities
+â”‚   â”‚   â”‚   â”œâ”€â”€ repository/   # Data Access Layer
+â”‚   â”‚   â”‚   â””â”€â”€ service/      # Business Logic
+â”‚   â”‚   â””â”€â”€ resources/
+â”‚   â”‚       â”œâ”€â”€ static/       # Frontend Assets (HTML, CSS, JS)
+â”‚   â”‚       â””â”€â”€ application.properties
+â”‚   â””â”€â”€ test/                 # Unit and Integration Tests
+â”œâ”€â”€ pom.xml                   # Maven Build Configuration
+â””â”€â”€ README.md                 # Project Documentation
 ```
 
-### 3. ÔËĞĞ Web Ó¦ÓÃ
-Æô¶¯·şÎñÆ÷:
-```cmd
-.\run_web.bat
-```
-»òÕßÊÖ¶¯ÔËĞĞ:
-```bash
-java -jar target/html-converter-1.0-SNAPSHOT.jar
-```
+## Prerequisites
 
-Æô¶¯ºó£¬·ÃÎÊä¯ÀÀÆ÷: [http://localhost:8080](http://localhost:8080)
+- Java 17 or higher
+- Maven 3.6+
 
-### 4. Ê¹ÓÃÖ¸ÄÏ
-1.  ÔÚµÇÂ¼Ò³Ãæµã»÷ "Register" ×¢²áĞÂÕËºÅ¡£
-2.  µÇÂ¼ºó½øÈëÒÇ±íÅÌ¡£
-3.  Ñ¡Ôñ HTML ÎÄ¼ş²¢Ö¸¶¨Ä¿±ê¸ñÊ½£¬µã»÷ "Convert"¡£
-4.  µÈ´ı×´Ì¬±äÎª "Completed"£¬µã»÷ "Download" ÏÂÔØ½á¹û¡£
+## Installation & Running
 
----
+1. **Build the project**:
+   ```bash
+   mvn clean package
+   ```
 
-## ÃüÁîĞĞ (CLI) Ê¹ÓÃ
-ÈÔÈ»¿ÉÒÔÍ¨¹ıÃüÁîĞĞÊ¹ÓÃºËĞÄ×ª»»¹¦ÄÜ£¨×¢Òâ£ºÓÉÓÚ¼¯³ÉÁË Spring Boot£¬jar °üÌå»ı±ä´ó£¬µ« Main-Class ÈÔ±£Áô£©£º
+2. **Run the application**:
+   ```bash
+   java -jar target/html-converter-1.0-SNAPSHOT.jar
+   ```
 
-```bash
-# ×ª»»µ¥¸öÎÄ¼ş
-java -cp target/html-converter-1.0-SNAPSHOT.jar -Dloader.main=com.example.htmlconverter.cli.Main org.springframework.boot.loader.launch.PropertiesLauncher -i input.html -o output.pdf -f pdf
-```
-*(×¢: Spring Boot ´ò°üºóÔËĞĞÌØ¶¨ Main Àà±È½Ï¸´ÔÓ£¬½¨ÒéÖ÷ÒªÊ¹ÓÃ Web Ä£Ê½)*
+3. **Access the Web UI**:
+   Open [http://localhost:8080](http://localhost:8080) in your browser.
 
-## ÏîÄ¿½á¹¹
+## API Usage
 
-- `src/main/java/com/example/htmlconverter`
-    - `controller`: REST API ½Ó¿Ú
-    - `service`: ÒµÎñÂß¼­ (×ª»»¡¢ÓÃ»§)
-    - `model`: Êı¾İ¿âÊµÌå
-    - `repository`: Êı¾İ·ÃÎÊ²ã
-    - `converter`: ºËĞÄ×ª»»Âß¼­ (PDF/Word/MD)
-    - `config`: °²È«ÅäÖÃ
-- `src/main/resources/static`: Ç°¶Ë×ÊÔ´ (HTML/CSS/JS)
+- **Login**: `POST /api/auth/login`
+- **Register**: `POST /api/auth/register`
+- **Convert**: `POST /api/convert` (Multipart file upload)
+- **Get Tasks**: `GET /api/tasks`
 
-## CI/CD
-ÏîÄ¿°üº¬ GitHub Actions ÅäÖÃ `.github/workflows/maven.yml`£¬Ö§³Ö×Ô¶¯¹¹½¨ºÍ²âÊÔ¡£
+## Contributing
 
-## ×¢ÒâÊÂÏî
-- **PDF ÖĞÎÄÖ§³Ö**£ºPDF ×ª»»Æ÷³¢ÊÔ¼ÓÔØ Windows ÏµÍ³×ÖÌå (SimSun, Microsoft YaHei)¡£Linux »·¾³ÏÂĞèÅäÖÃ×ÖÌåÂ·¾¶¡£
-- **Êı¾İ¿â**£ºÊ¹ÓÃ H2 ÄÚ´æÊı¾İ¿â£¬ÖØÆôÓ¦ÓÃºóÊı¾İ»áÖØÖÃ¡£
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request

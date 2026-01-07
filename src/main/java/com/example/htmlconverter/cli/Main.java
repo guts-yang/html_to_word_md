@@ -1,7 +1,6 @@
 package com.example.htmlconverter.cli;
 
 import com.example.htmlconverter.converter.MarkdownConverter;
-import com.example.htmlconverter.converter.PdfConverter;
 import com.example.htmlconverter.converter.WordConverter;
 import com.example.htmlconverter.core.DocumentConverter;
 import org.apache.commons.cli.*;
@@ -56,17 +55,13 @@ public class Main {
                     converter = new MarkdownConverter(); 
                     ext = ".md";
                     break;
-                case "pdf": 
-                    converter = new PdfConverter(); 
-                    ext = ".pdf";
-                    break;
                 case "docx": 
                 case "word": 
                     converter = new WordConverter(); 
                     ext = ".docx";
                     break;
                 default:
-                    System.err.println("Error: Unsupported format '" + format + "'. Supported: md, pdf, docx");
+                    System.err.println("Error: Unsupported format '" + format + "'. Supported: md, docx");
                     return;
             }
 

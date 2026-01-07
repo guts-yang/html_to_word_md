@@ -15,4 +15,3 @@ com\example\htmlconverter\repository\UserRepository.class
 com\example\htmlconverter\service\ConversionService.class
 com\example\htmlconverter\converter\MarkdownConverter.class
 com\example\htmlconverter\model\User.class
-com\example\htmlconverter\converter\PdfConverter.class

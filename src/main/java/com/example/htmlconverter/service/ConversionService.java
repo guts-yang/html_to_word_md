@@ -1,7 +1,6 @@
 package com.example.htmlconverter.service;
 
 import com.example.htmlconverter.converter.MarkdownConverter;
-import com.example.htmlconverter.converter.PdfConverter;
 import com.example.htmlconverter.converter.WordConverter;
 import com.example.htmlconverter.core.DocumentConverter;
 import com.example.htmlconverter.model.ConversionTask;
@@ -58,50 +57,66 @@ public class ConversionService {
     }
 
     @Async
-    public void processConversion(Long taskId, File inputFile, String targetFormat) {
+    public void processConversion(long taskId, File inputFile, String targetFormat) {
         ConversionTask task = taskRepository.findById(taskId).orElse(null);
         if (task == null) return;
 
-        try {
-            task.setStatus("PROCESSING");
-            taskRepository.save(task);
+        int maxRetries = 3;
+        int attempt = 0;
+        Exception lastException = null;
 
-            DocumentConverter converter;
-            String outputExtension;
-            
-            switch (targetFormat.toLowerCase()) {
-                case "pdf":
-                    converter = new PdfConverter();
-                    outputExtension = ".pdf";
-                    break;
-                case "markdown":
-                case "md":
-                    converter = new MarkdownConverter();
-                    outputExtension = ".md";
-                    break;
-                case "word":
-                case "docx":
-                    converter = new WordConverter();
-                    outputExtension = ".docx";
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unsupported format: " + targetFormat);
+        while (attempt < maxRetries) {
+            try {
+                if (attempt == 0) {
+                    task.setStatus("PROCESSING");
+                } else {
+                    task.setStatus("RETRYING (" + (attempt + 1) + "/" + maxRetries + ")");
+                }
+                taskRepository.save(task);
+
+                DocumentConverter converter;
+                String outputExtension;
+                
+                switch (targetFormat.toLowerCase()) {
+                    case "markdown":
+                    case "md":
+                        converter = new MarkdownConverter();
+                        outputExtension = ".md";
+                        break;
+                    case "word":
+                    case "docx":
+                        converter = new WordConverter();
+                        outputExtension = ".docx";
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unsupported format: " + targetFormat);
+                }
+
+                String outputFileName = "result_" + task.getId() + outputExtension;
+                File outputFile = this.fileStorageLocation.resolve("results").resolve(outputFileName).toFile();
+
+                converter.convert(inputFile, outputFile);
+
+                task.setStatus("COMPLETED");
+                task.setResultPath(outputFileName); // Store relative path or filename
+                taskRepository.save(task);
+                return; // Success, exit method
+
+            } catch (Exception e) {
+                lastException = e;
+                attempt++;
+                System.err.println("Conversion attempt " + attempt + " failed for task " + taskId + ": " + e.getMessage());
+                // Optional: add small delay before retry
+                try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
             }
+        }
 
-            String outputFileName = "result_" + task.getId() + outputExtension;
-            File outputFile = this.fileStorageLocation.resolve("results").resolve(outputFileName).toFile();
-
-            converter.convert(inputFile, outputFile);
-
-            task.setStatus("COMPLETED");
-            task.setResultPath(outputFileName); // Store relative path or filename
-            taskRepository.save(task);
-
-        } catch (Exception e) {
-            task.setStatus("FAILED");
-            task.setErrorMessage(e.getMessage());
-            taskRepository.save(task);
-            e.printStackTrace();
+        // If we reach here, all retries failed
+        task.setStatus("FAILED");
+        task.setErrorMessage("Failed after " + maxRetries + " attempts. Last error: " + (lastException != null ? lastException.getMessage() : "Unknown error"));
+        taskRepository.save(task);
+        if (lastException != null) {
+            lastException.printStackTrace();
         }
     }
 

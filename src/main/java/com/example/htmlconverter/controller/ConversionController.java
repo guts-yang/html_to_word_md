@@ -8,7 +8,6 @@ import com.example.htmlconverter.service.ConversionService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -52,6 +50,7 @@ public class ConversionController {
     }
 
     @GetMapping("/download/{fileName:.+}")
+    @SuppressWarnings("null")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
         try {
             Path filePath = conversionService.getResultPath(fileName);

@@ -1,7 +1,6 @@
 package com.example.htmlconverter;
 
 import com.example.htmlconverter.converter.MarkdownConverter;
-import com.example.htmlconverter.converter.PdfConverter;
 import com.example.htmlconverter.converter.WordConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,15 +47,6 @@ public class ConverterTest {
         
         assertTrue(output.exists(), "Markdown output file should exist");
         assertTrue(output.length() > 0, "Markdown file should not be empty");
-    }
-
-    @Test
-    void testPdfConversion() throws Exception {
-        File output = tempDir.resolve("output.pdf").toFile();
-        new PdfConverter().convert(inputHtml, output);
-        
-        assertTrue(output.exists(), "PDF output file should exist");
-        assertTrue(output.length() > 0, "PDF file should not be empty");
     }
 
     @Test

@@ -1,0 +1,16 @@
+{
+  "name": "html-converter-web",
+  "version": "1.0.0",
+  "description": "HTML to Word/Markdown Converter Web Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "java",
+    "spring-boot",
+    "html-converter"
+  ],
+  "author": "",
+  "license": "ISC"
+}

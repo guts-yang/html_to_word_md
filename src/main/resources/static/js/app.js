@@ -166,7 +166,8 @@ function renderTasks(tasks) {
         let actionBtn = '';
         if (task.status === 'COMPLETED' && task.resultPath) {
             // Fix path separator for URL if needed, but task.resultPath should be just filename from Service
-            const downloadUrl = `${API_URL}/download/${encodeURIComponent(task.resultPath)}`;
+            // Use encodeURI to preserve slashes (e.g. "123/file.pdf") but encode spaces/special chars
+            const downloadUrl = `${API_URL}/download/${encodeURI(task.resultPath)}`;
             actionBtn = `<a href="${downloadUrl}" class="btn btn-sm btn-primary" target="_blank">Download</a>`;
         } else if (task.status === 'FAILED') {
             actionBtn = `<small class="text-danger">${task.errorMessage || 'Error'}</small>`;
