@@ -1,0 +1,3 @@
+@echo off
+echo Starting HTML Converter Web Application...
+java -jar target\html-converter-1.0-SNAPSHOT.jar
