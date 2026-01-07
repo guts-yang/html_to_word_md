@@ -66,6 +66,11 @@
 3. **访问 Web UI**:
    在浏览器中打开 [http://localhost:8080](http://localhost:8080)。
 
+4. **默认账号**:
+   - 用户名: `gutsyang`
+   - 密码: `123456`
+   - 说明: 该账号在系统启动时自动初始化，数据持久化存储在本地 `data/` 目录中。
+
 ## API 使用说明
 
 - **登录**: `POST /api/auth/login`
