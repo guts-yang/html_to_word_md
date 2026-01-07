@@ -7,11 +7,13 @@
 <img width="331" height="439" alt="image" src="https://github.com/user-attachments/assets/1e35ab53-6e08-45ce-a54c-9d95d48b23c9" />
 
 **把老师给的html格式课件文件转换成word、md格式，方便进行AI整理笔记**
-
-**把老师给的html格式课件文件转换成word、md格式，方便进行AI整理笔记** 
-
+## Web应用界面
 <img width="1343" height="425" alt="image" src="https://github.com/user-attachments/assets/41a2452e-9a99-4a47-acd9-7c1121a2b8f1" />
+
+## 生成Word文档
 <img width="1920" height="970" alt="image" src="https://github.com/user-attachments/assets/018207fd-93eb-4635-8726-33335ae4a217" />
+
+## 生成Markdown文档
 <img width="1049" height="546" alt="image" src="https://github.com/user-attachments/assets/d5b3e858-beb8-4db6-90ea-948b783801aa" />
 
 - **Web 界面**: 用户友好的仪表盘，用于文件上传和任务管理。
