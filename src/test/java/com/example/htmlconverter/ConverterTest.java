@@ -8,8 +8,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,10 +27,10 @@ public class ConverterTest {
     @BeforeEach
     void setUp() throws IOException {
         inputHtml = tempDir.resolve("test.html").toFile();
-        try (FileWriter fw = new FileWriter(inputHtml)) {
+        try (Writer fw = new OutputStreamWriter(new FileOutputStream(inputHtml), StandardCharsets.UTF_8)) {
             fw.write("<html>\n" +
                     "<body>\n" +
-                    "    <h1>Title ≤‚ ‘</h1>\n" +
+                    "    <h1>Title ??</h1>\n" +
                     "    <p>This is a <b>bold</b> paragraph.</p>\n" +
                     "    <ul>\n" +
                     "        <li>Item 1</li>\n" +
